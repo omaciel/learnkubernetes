@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-db
+  labels:
+    purpose: learning
+spec:
+  containers:
+  - env:
+    - name: MARIADB_USER
+      valueFrom:
+        secretKeyRef:
+          name: mariadb-secret
+          key: mariadb-user
+    - name: MARIADB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mariadb-secret
+          key: mariadb-password
+    - name: MARIADB_ROOT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mariadb-secret
+          key: mariadb-root-password
+    - name: MARIADB_DATABASE
+      valueFrom:
+        configMapKeyRef:
+          name: mariadb-config
+          key: mariadb-database
+    image: mariadb:latest
+    imagePullPolicy: Always
+    name: my-db
