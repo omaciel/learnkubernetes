@@ -2,6 +2,7 @@
 Inspired on the repository [k8s in 1-hour](https://gitlab.com/nanuchi/k8s-in-1-hour)
 
 #### K8s manifest files 
+* deploy-mariadb.yaml
 * mariadb-config.yaml
 * mariadb-secret.yaml
 * mariadb.yaml
@@ -19,6 +20,26 @@ Inspired on the repository [k8s in 1-hour](https://gitlab.com/nanuchi/k8s-in-1-h
     kubectl apply -f mariadb-config.yaml
     kubectl apply -f mariadb-secret.yaml
     kubectl apply -f mariadb.yaml
+
+<br />
+
+or replace the last step with
+
+<br />
+
+    kubectl apply -f deploy-mariadb.yaml
+
+<br />
+
+##### query the pods database
+    kubectl get pods
+    kubectl exec -it mariadb-deployment-f58d85f49-nvd8l -- mariadb -uroot -pmy-secret-pw -e "show databases"
+
+<br />
+
+> :memo: **Note** 
+
+Replace `mariadb-deployment-f58d85f49-nvd8l` with a valid pod name.
 
 ##### get basic info about k8s components
     kubectl get node
