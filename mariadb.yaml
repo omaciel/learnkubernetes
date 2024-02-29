@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: my-db
+  name: mariadb-pod
   labels:
     purpose: learning
 spec:
@@ -29,4 +29,6 @@ spec:
           key: mariadb-database
     image: mariadb:latest
     imagePullPolicy: Always
-    name: my-db
+    name: mariadb
+    ports:
+      - containerPort: 3306

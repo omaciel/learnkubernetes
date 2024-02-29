@@ -23,7 +23,7 @@ Inspired on the repository [k8s in 1-hour](https://gitlab.com/nanuchi/k8s-in-1-h
 
 <br />
 
-or replace the last step with
+or replace the last step with the following for a deployment with 2 replicas
 
 <br />
 
@@ -40,6 +40,25 @@ or replace the last step with
 > :memo: **Note** 
 
 Replace `mariadb-deployment-f58d85f49-nvd8l` with a valid pod name.
+
+##### expose the pod for local access
+
+    kubectl apply -f mariadb-service.yaml
+    minikube service mariadb-deployment
+    |-----------|--------------------|-------------|---------------------------|
+    | NAMESPACE |        NAME        | TARGET PORT |            URL            |
+    |-----------|--------------------|-------------|---------------------------|
+    | default   | mariadb-deployment |        3306 | http://192.168.49.2:30963 |
+    |-----------|--------------------|-------------|---------------------------|
+    🏃  Starting tunnel for service mariadb-deployment.
+    |-----------|--------------------|-------------|------------------------|
+    | NAMESPACE |        NAME        | TARGET PORT |          URL           |
+    |-----------|--------------------|-------------|------------------------|
+    | default   | mariadb-deployment |             | http://127.0.0.1:50417 |
+    |-----------|--------------------|-------------|------------------------|
+    🎉  Opening service default/mariadb-deployment in default browser...
+    ❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+
 
 ##### get basic info about k8s components
     kubectl get node
