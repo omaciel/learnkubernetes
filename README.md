@@ -2,10 +2,11 @@
 Inspired on the repository [k8s in 1-hour](https://gitlab.com/nanuchi/k8s-in-1-hour)
 
 #### K8s manifest files 
-* deploy-mariadb.yaml
 * mariadb-config.yaml
+* mariadb-deployment.yaml
+* mariadb-pvc.yaml
 * mariadb-secret.yaml
-* mariadb.yaml
+* mariadb-service.yaml
 
 #### K8s commands
 
@@ -19,15 +20,10 @@ Inspired on the repository [k8s in 1-hour](https://gitlab.com/nanuchi/k8s-in-1-h
 ##### create a basic MariaDB container
     kubectl apply -f mariadb-config.yaml
     kubectl apply -f mariadb-secret.yaml
-    kubectl apply -f mariadb.yaml
+    kubectl apply -f mariadb-pvc.yaml
+    kubectl apply -f mariadb-deployment.yaml
+    kubectl apply -f mariadb-service.yaml
 
-<br />
-
-or replace the last step with the following for a deployment with 2 replicas
-
-<br />
-
-    kubectl apply -f deploy-mariadb.yaml
 
 <br />
 
@@ -43,18 +39,17 @@ Replace `mariadb-deployment-f58d85f49-nvd8l` with a valid pod name.
 
 ##### expose the pod for local access
 
-    kubectl apply -f mariadb-service.yaml
-    minikube service mariadb-deployment
+    minikube service mariadb-service
     |-----------|--------------------|-------------|---------------------------|
     | NAMESPACE |        NAME        | TARGET PORT |            URL            |
     |-----------|--------------------|-------------|---------------------------|
-    | default   | mariadb-deployment |        3306 | http://192.168.49.2:30963 |
+    | default   | mariadb-service |        3306 | http://192.168.49.2:30963 |
     |-----------|--------------------|-------------|---------------------------|
-    🏃  Starting tunnel for service mariadb-deployment.
+    🏃  Starting tunnel for service mariadb-service.
     |-----------|--------------------|-------------|------------------------|
     | NAMESPACE |        NAME        | TARGET PORT |          URL           |
     |-----------|--------------------|-------------|------------------------|
-    | default   | mariadb-deployment |             | http://127.0.0.1:50417 |
+    | default   | mariadb-service |             | http://127.0.0.1:50417 |
     |-----------|--------------------|-------------|------------------------|
     🎉  Opening service default/mariadb-deployment in default browser...
     ❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.

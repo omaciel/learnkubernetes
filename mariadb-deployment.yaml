@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: mariadb-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: mariadb
@@ -36,3 +36,10 @@ spec:
             secretKeyRef:
               name: mariadb-secret
               key: mariadb-password
+        volumeMounts:
+        - name: mariadb-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mariadb-persistent-storage
+        persistentVolumeClaim:
+          claimName: mariadb-pvc
