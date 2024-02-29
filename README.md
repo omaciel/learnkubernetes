@@ -1,12 +1,14 @@
 ### Repository for Kubernetes Learning
-Inspired on the repository [k8s in 1-hour](https://gitlab.com/nanuchi/k8s-in-1-hour)
+Inspired on the repository [k8s in 1-hour](https://gitlab.com/nanuchi/k8s-in-1-hour).
+
+<br />
+
+| :memo:        | Check other branches in this repository for other examples.       |
+|---------------|:------------------------|
 
 #### K8s manifest files 
-* mariadb-config.yaml
-* mariadb-deployment.yaml
-* mariadb-pvc.yaml
-* mariadb-secret.yaml
-* mariadb-service.yaml
+* nginx-deployment.yaml
+* nginx-service.yaml
 
 #### K8s commands
 
@@ -17,41 +19,28 @@ Inspired on the repository [k8s in 1-hour](https://gitlab.com/nanuchi/k8s-in-1-h
 ##### get minikube node's ip address
     minikube ip
 
-##### create a basic MariaDB container
-    kubectl apply -f mariadb-config.yaml
-    kubectl apply -f mariadb-secret.yaml
-    kubectl apply -f mariadb-pvc.yaml
-    kubectl apply -f mariadb-deployment.yaml
-    kubectl apply -f mariadb-service.yaml
+##### create a basic nginx container
+    kubectl apply -f nginx-deployment.yaml
+    kubectl apply -f nginx-service.yaml
 
 
 <br />
-
-##### query the pods database
-    kubectl get pods
-    kubectl exec -it mariadb-deployment-f58d85f49-nvd8l -- mariadb -uroot -pmy-secret-pw -e "show databases"
-
-<br />
-
-> :memo: **Note** 
-
-Replace `mariadb-deployment-f58d85f49-nvd8l` with a valid pod name.
 
 ##### expose the pod for local access
 
-    minikube service mariadb-service
-    |-----------|--------------------|-------------|---------------------------|
-    | NAMESPACE |        NAME        | TARGET PORT |            URL            |
-    |-----------|--------------------|-------------|---------------------------|
-    | default   | mariadb-service |        3306 | http://192.168.49.2:30963 |
-    |-----------|--------------------|-------------|---------------------------|
-    🏃  Starting tunnel for service mariadb-service.
-    |-----------|--------------------|-------------|------------------------|
-    | NAMESPACE |        NAME        | TARGET PORT |          URL           |
-    |-----------|--------------------|-------------|------------------------|
-    | default   | mariadb-service |             | http://127.0.0.1:50417 |
-    |-----------|--------------------|-------------|------------------------|
-    🎉  Opening service default/mariadb-deployment in default browser...
+    minikube service nginx-service
+    |-----------|---------------|-------------|---------------------------|
+    | NAMESPACE |     NAME      | TARGET PORT |            URL            |
+    |-----------|---------------|-------------|---------------------------|
+    | default   | nginx-service | http/80     | http://192.168.49.2:31549 |
+    |-----------|---------------|-------------|---------------------------|
+    🏃  Starting tunnel for service nginx-service.
+    |-----------|---------------|-------------|------------------------|
+    | NAMESPACE |     NAME      | TARGET PORT |          URL           |
+    |-----------|---------------|-------------|------------------------|
+    | default   | nginx-service |             | http://127.0.0.1:54390 |
+    |-----------|---------------|-------------|------------------------|
+    🎉  Opening service default/nginx-service in default browser...
     ❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
 
 
@@ -74,24 +63,9 @@ Replace `mariadb-deployment-f58d85f49-nvd8l` with a valid pod name.
     
 ##### stop your Minikube cluster
     minikube stop
-
-<br />
-
-> :memo: **Secrets** 
-
-For this example, user names and passwords were `base64` enconded as follows:
-    
-    mariadb-user: ZXhhbexample-userXBsZS11c2Vy # example-user
-    mariadb-password: bXlfY29vbF9zZWNyZXQ=     # my_cool_secret
-    mariadb-root-password: bXktc2VjcmV0LXB3    # my-secret-pw
-
-    echo -n example-user | base64
-    echo -n my_cool_secret | base64
-    echo -n my-secret-pw | base64
-
 <br />
 
 #### Links
-* MariaDB image on Docker Hub: https://hub.docker.com/_/mariadb
+* Nginx image on Docker Hub: https://hub.docker.com/_/nginx
 * k8s official documentation: https://kubernetes.io/docs/home/
 * Docker official documentation: https://docs.docker.com/reference/
